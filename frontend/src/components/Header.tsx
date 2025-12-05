@@ -16,7 +16,7 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
     { name: "Home", href: "/" },
     { name: "Teachers", href: "/teachers" },
     { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+
   ];
 
   return (
