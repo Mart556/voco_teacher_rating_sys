@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage.tsx";
-import TeacherList from "./components/TeacherList";
+import TeacherList from "./pages/TeacherList.tsx";
 import TeacherProfile from "./components/TeacherProfile";
 import About from "./pages/About.tsx"; // ✅ Import About
 import { useState } from "react";

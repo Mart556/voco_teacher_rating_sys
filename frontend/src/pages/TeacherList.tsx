@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MagnifyingGlassIcon, FunnelIcon } from "@heroicons/react/24/outline";
-import TeacherCard from "./TeacherCard";
+import TeacherCard from "../components/TeacherCard";
 
 interface Teacher {
   _id: string;

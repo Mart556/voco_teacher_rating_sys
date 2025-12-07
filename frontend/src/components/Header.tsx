@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { MoonIcon, SunIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 interface HeaderProps {
   darkMode: boolean;
@@ -104,22 +104,7 @@ export default function Header({}: HeaderProps) {
       </nav>
 
       {/* Sign In Modal */}
-      {showSignIn && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Sign In</h2>
-              <button
-                onClick={() => setShowSignIn(false)}
-                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-              >
-                <XMarkIcon className="w-6 h-6" />
-              </button>
-            </div>
-            {/* Add your form here */}
-          </div>
-        </div>
-      )}
+      
     </header>
   );
 }
