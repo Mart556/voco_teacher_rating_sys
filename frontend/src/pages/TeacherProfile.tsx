@@ -6,6 +6,7 @@ import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline
 import { toast } from "sonner";
 
 import { teachers } from "../lib/data";
+import { ratings } from "../lib/ratings";
 import type { Review } from "../lib/types";
 
 // Helper: render stars
@@ -39,9 +40,30 @@ const renderStars = (
 export default function TeacherProfile() {
   const { id } = useParams<{ id: string }>();
 
-  // Find teacher from data.ts and manage in component state
+  // Find teacher from data.ts and hydrate with mock ratings
   const initialTeacher = teachers.find((t) => t.id === id);
-  const [teacher, setTeacher] = useState(initialTeacher);
+
+  const teacherRatings: Review[] = initialTeacher
+    ? ratings
+        .filter((r) => r.teacherId.toString() === initialTeacher.id)
+        .map((r) => ({
+          id: r.id.toString(),
+          studentName: "Anon",
+          rating: r.rating,
+          comment: r.description,
+          subject: "",
+          createdAt: r.createdAt,
+        }))
+    : [];
+
+  const initialTeacherWithReviews = initialTeacher
+    ? {
+        ...initialTeacher,
+        reviews: [...teacherRatings, ...(initialTeacher.reviews || [])],
+      }
+    : undefined;
+
+  const [teacher, setTeacher] = useState(initialTeacherWithReviews);
 
   // Recalculate average rating whenever teacher data changes
   const averageRating = useMemo(() => {
