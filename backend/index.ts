@@ -9,29 +9,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Enable CORS for all routes
-app.use(
-	cors({
-		origin: "*",
-		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-		allowedHeaders: ["Content-Type"],
-	})
-);
+// NB!: Enable CORS for all routes
+app.use(cors());
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", router);
+app.use(express.static("../frontend/dist"));
 
 app.get("/", (req, res) => {
-	res.json({ message: "Teacher Rating System API" });
+	res.sendFile("index.html", { root: "../frontend/dist" });
 });
+
+app.use("/api", router);
 
 // Initialize database and start server
 initDb()
 	.then(() => {
-		app.listen(PORT, "0.0.0.0", () => {
+		app.listen(PORT, () => {
 			console.log(`Server is running on http://localhost:${PORT}`);
 		});
 	})
@@ -41,3 +37,4 @@ initDb()
 	});
 
 export default app;
+d;
