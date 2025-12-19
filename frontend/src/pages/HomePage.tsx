@@ -7,7 +7,7 @@ import TeacherCard from "../components/TeacherCard"; // import the TeacherCard c
 export default function HomePage() {
 	const [teachersList, setTeachersList] = useState([] as Teacher[]);
 	const [isLoading, setIsLoading] = useState(true); // Add loading state
-    const [error, setError] = useState<string | null>(null); // Add error state
+	const [error, setError] = useState<string | null>(null); // Add error state
 
 	useEffect(() => {
 		async function fetchTeachers() {
@@ -15,26 +15,26 @@ export default function HomePage() {
 				const response = await fetch("/api/teachers");
 
 				// 1. Check if response is successful (Status 200-299)
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}`);
-                }
+				if (!response.ok) {
+					throw new Error(`Server error: ${response.status}`);
+				}
 
 				const data = await response.json();
 
 				// 2. SAFETY CHECK: Ensure data is actually an array before setting state
-                if (Array.isArray(data)) {
-                    setTeachersList(data);
-                } else {
-                    console.error("Data received is not an array:", data);
-                    setTeachersList([]); 
-                }
+				if (Array.isArray(data)) {
+					setTeachersList(data);
+				} else {
+					console.error("Data received is not an array:", data);
+					setTeachersList([]);
+				}
 			} catch (error) {
 				console.error("Failed to fetch teachers:", error);
-                setError("Failed to load teachers.");
-                setTeachersList([]); // Ensure it stays an array
+				setError("Failed to load teachers.");
+				setTeachersList([]); // Ensure it stays an array
 			} finally {
-                setIsLoading(false);
-            }
+				setIsLoading(false);
+			}
 		}
 		fetchTeachers();
 	}, []);
@@ -43,6 +43,14 @@ export default function HomePage() {
 	const topTeachers = [...teachersList]
 		.sort((a, b) => b.avgRating - a.avgRating) // Sort descending by rating
 		.slice(0, 6); // Take top 6 teachers
+
+	if (error) {
+		return <div className='text-center py-20 text-red-600'>{error}</div>;
+	}
+
+	if (isLoading) {
+		return <div className='text-center py-20'>Loading...</div>;
+	}
 
 	return (
 		<div>
