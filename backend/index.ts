@@ -37,4 +37,3 @@ initDb()
 	});
 
 export default app;
-d;
