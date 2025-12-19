@@ -173,18 +173,9 @@ class UserService {
 		console.log("DEBUG: User object:", {
 			id: user.id,
 			email: user.email,
-			isVerified: user.isVerified,
-			isVerifiedType: typeof user.isVerified,
 			dataValues: user.dataValues,
 		});
-
-		if (!user.isVerified) {
-			throw new UserServiceError(
-				"Palun kinnita oma email enne sisselogimist",
-				"NOT_VERIFIED"
-			);
-		}
-
+		
 		return user;
 	}
 }
